@@ -34,36 +34,36 @@ public class Room {
 
 	// getters and setters
 	public long getId() {
-		return this.id;
-	}
+        return id;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public String getName() {
-		return this.name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getRoomNumber() {
-		return this.roomNumber;
-	}
+    public String getRoomNumber() {
+        return roomNumber;
+    }
 
-	public void setRoomNumber(String roomNumber) {
-		this.roomNumber = roomNumber;
-	}
+    public void setRoomNumber(String roomNumber) {
+        this.roomNumber = roomNumber;
+    }
 
-	public String getBedInfo() {
-		return this.bedInfo;
-	}
+    public String getBedInfo() {
+        return bedInfo;
+    }
 
-	public void setBedInfo(String bedInfo) {
-		this.bedInfo = bedInfo;
-	}
+    public void setBedInfo(String bedInfo) {
+        this.bedInfo = bedInfo;
+    }
 
 	// methods
 	@Override

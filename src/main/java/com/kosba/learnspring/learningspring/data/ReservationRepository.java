@@ -2,10 +2,10 @@ package com.kosba.learnspring.learningspring.data;
 
 import java.sql.Date;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ReservationRepository extends CrudRepository<Reservation, Long> {
-	Iterable<Reservation> findReservationByDate(Date date);
+public interface ReservationRepository extends JpaRepository<Reservation, Long> {
+    Iterable<Reservation> findReservationByReservationDate(Date date);
 }

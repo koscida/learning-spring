@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Sunflower Hotel: Guests</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="" />
+	</head>
+	<body>
+		<h1>Welcome to the Guests Page</h1>
+
+		<table>
+			<thead>
+				<tr>
+					<th>Last Name</th>
+					<th>First Name</th>
+					<th>Email</th>
+					<th>Phone Number</th>
+				</tr>
+				<tr th:each="guest: ${guests}">
+					<td th:text="${guest.firstName}">First Name</td>
+					<td th:text="${guest.lastName}">Last Name</td>
+					<td th:text="${guest.emailAddress}">Email Address</td>
+					<td th:text="${guest.phoneNumber}">Phone Number</td>
+				</tr>
+			</thead>
+		</table>
+
+		<script src="" async defer></script>
+	</body>
+</html>

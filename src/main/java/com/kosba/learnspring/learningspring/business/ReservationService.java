@@ -18,13 +18,25 @@ import com.kosba.learnspring.learningspring.data.RoomRepository;
 
 @Service
 public class ReservationService {
-    private RoomRepository roomRepository;
-    private GuestRepository guestRepository;
-    private ReservationRepository reservationRepository;
+
+    private final RoomRepository roomRepository;
+    private final GuestRepository guestRepository;
+    private final ReservationRepository reservationRepository;
+
+	// constructor
+
+	public ReservationService(RoomRepository roomRepository, GuestRepository guestRepository, ReservationRepository reservationRepository) {
+		this.roomRepository = roomRepository;
+		this.guestRepository = guestRepository;
+		this.reservationRepository = reservationRepository;
+	}
+
+	// methods
 
     public List<RoomReservation> getRoomReservationsForDate(Date date) {
+		Map<Long, RoomReservation> roomReservationMap = new HashMap();
+
         Iterable<Room> rooms = this.roomRepository.findAll();
-        Map<Long, RoomReservation> roomReservationMap = new HashMap();
         rooms.forEach(room -> {
             RoomReservation roomReservation = new RoomReservation();
             roomReservation.setRoomId(room.getId());
@@ -32,6 +44,7 @@ public class ReservationService {
             roomReservation.setRoomNumber(room.getRoomNumber());
             roomReservationMap.put(room.getId(), roomReservation);
         });
+
         Iterable<Reservation> reservations = this.reservationRepository.findReservationByReservationDate(new java.sql.Date(date.getTime()));
         reservations.forEach(reservation -> {
             RoomReservation roomReservation = roomReservationMap.get(reservation.getRoomId());
@@ -41,10 +54,12 @@ public class ReservationService {
             roomReservation.setLastName(guest.getLastName());
             roomReservation.setGuestId(guest.getGuestId());
         });
+
         List<RoomReservation> roomReservations = new ArrayList<>();
         for (Long id : roomReservationMap.keySet()) {
             roomReservations.add(roomReservationMap.get(id));
         }
+
         roomReservations.sort(new Comparator<RoomReservation>() {
             @Override
             public int compare(RoomReservation o1, RoomReservation o2) {
@@ -54,7 +69,14 @@ public class ReservationService {
                 return o1.getRoomName().compareTo(o2.getRoomName());
             }
         });
+
         return roomReservations;
     }
+
+	public List<Guest> getGuests() {
+		List<Guest> guests1 = this.guestRepository.findAll();
+		
+		return guests1;
+	}
 }
 

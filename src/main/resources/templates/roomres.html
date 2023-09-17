@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Sunflower Hotel: Room Reservations</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+	</head>
+	<body>
+		<h1>Welcome to the Reservations Page</h1>
+
+		<table>
+			<thead>
+				<tr>
+					<th>Room</th>
+					<th>Room Number</th>
+					<th>Guest</th>
+				</tr>
+				<tr th:each="roomReservation: ${roomReservations}">
+					<td th:text="${roomReservation.roomName}">Room Name</td>
+					<td th:text="${roomReservation.roomNumber}">Room Number</td>
+					<td
+						th:text="${roomReservation.lastName} != null ? ${roomReservation.lastName} + ', ' + ${roomReservation.firstName} : 'VACANT'"
+					>
+						Guest
+					</td>
+				</tr>
+			</thead>
+		</table>
+
+		<script src="" async defer></script>
+	</body>
+</html>

@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.stereotype.Service;
 
 import com.kosba.learnspring.learningspring.data.Guest;
@@ -32,6 +34,9 @@ public class ReservationService {
 	}
 
 	// methods
+
+	// 
+	// Reservations - Get
 
     public List<RoomReservation> getRoomReservationsForDate(Date date) {
 		Map<Long, RoomReservation> roomReservationMap = new HashMap();
@@ -73,10 +78,60 @@ public class ReservationService {
         return roomReservations;
     }
 
+	// 
+	// Guest
+	
+	// Get
+
 	public List<Guest> getGuests() {
-		List<Guest> guests1 = this.guestRepository.findAll();
+		Iterable<Guest> guests = this.guestRepository.findAll();
+
+		List<Guest> guestList = new ArrayList<>();
+
+		guests.forEach(guest -> {guestList.add(guest);});
+
+		guestList.sort(new Comparator<Guest>() {
+            @Override
+            public int compare(Guest o1, Guest o2) {
+                if (o1.getLastName().equals(o2.getLastName())) {
+                    return o1.getFirstName().compareTo(o2.getFirstName());
+                }
+                return o1.getLastName().compareTo(o2.getLastName());
+            }
+        });
 		
-		return guests1;
+		return guestList;
+	}
+
+	// Add
+	public void addGuest(Guest guest) {
+		if(guest == null) {
+			throw new RuntimeException("Guests cannot be null");
+		}
+		this.guestRepository.save(guest);
+	}
+
+	// 
+	// Room - Get
+
+	public List<Room> getRooms() {
+		Iterable<Room> rooms = this.roomRepository.findAll();
+
+		List<Room> roomList = new ArrayList<>();
+
+		rooms.forEach(room -> {roomList.add(room);});
+
+		roomList.sort(new Comparator<Room>() {
+			@Override
+			public int compare(Room r1, Room r2) {
+				if(r1.getName().equals(r2.getName())) {
+					return r1.getRoomNumber().compareTo(r2.getRoomNumber());
+				}
+				return r1.getName().compareTo(r2.getName());
+			}
+		});
+
+		return roomList;
 	}
 }
 
